@@ -1,7 +1,18 @@
+interface IMenu {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+  category: string;
+  isAvaliable: string;
+}
+
 interface ICart {
-  menuItemId: string;
+  menuId: string;
   quantity: number;
   notes?: string;
+  menuItem?: IMenu;
 }
 
 interface IOrder {
@@ -13,4 +24,4 @@ interface IOrder {
   total: number;
 }
 
-export type { IOrder, ICart };
+export type { IOrder, ICart, IMenu };
