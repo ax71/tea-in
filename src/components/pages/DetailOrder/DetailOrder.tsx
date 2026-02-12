@@ -15,7 +15,7 @@ const DetailOrder = () => {
       setOrder(result);
     };
     FetchOrder();
-  }, []);
+  }, [id]);
 
   return (
     <main className={styles.detail}>
@@ -58,9 +58,14 @@ const DetailOrder = () => {
                   src={item?.menuItem?.image_url}
                   alt={item?.menuItem?.name}
                 />
-                <p className={styles.name}>
-                  {item.quantity} x {item.menuItem?.name}
-                </p>
+                <div>
+                  <p className={styles.name}>
+                    {item.quantity} x {item.menuItem?.name}
+                  </p>
+                  <p className={styles.price}>
+                    ${parseInt(`${item.menuItem?.price}`) * item.quantity}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

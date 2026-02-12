@@ -27,3 +27,17 @@ export const getOrderById = async (id: string) => {
 
   return result;
 };
+
+export const updateOrder = async (id: string, payload: { status: string }) => {
+  const url = `${environment.API_URL}/orders/${id}`;
+
+  const result = await fetchApi(url, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${getLocalStorage("auth")}`,
+    },
+    body: JSON.stringify(payload),
+  }).then((data) => data);
+
+  return result;
+};
