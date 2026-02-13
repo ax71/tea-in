@@ -1,0 +1,58 @@
+.create {
+    display: flex;
+    gap: 32px;
+    flex-direction: column;
+    padding: 16px;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: row;
+    }
+}
+
+.menu {
+    @media screen and (max-width: 768px) {
+        width: 70%;
+    }
+}
+
+.filter {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+
+    /* CSS nasted */
+    .item {
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 24px;
+
+        .image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 10px;
+        }
+
+        .bottom {
+            margin-top: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .price {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
