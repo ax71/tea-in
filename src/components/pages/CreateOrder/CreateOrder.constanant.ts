@@ -10,23 +10,23 @@ const filters = [
 const tables = [
   {
     label: "Table 1",
-    value: "Table 1",
+    value: "1",
   },
   {
     label: "Table 2",
-    value: "Table 2",
+    value: "2",
   },
   {
     label: "Table 3",
-    value: "Table 3",
+    value: "3",
   },
   {
     label: "Table 4",
-    value: "Table 4",
+    value: "4",
   },
   {
     label: "Table 5",
-    value: "Table 5",
+    value: "5",
   },
 ];
 

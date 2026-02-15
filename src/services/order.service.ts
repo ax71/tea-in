@@ -1,4 +1,5 @@
 import { environment } from "../constants/environment";
+import type { ICart } from "../types/order";
 import { fetchApi } from "../utils/fetch";
 import { getLocalStorage } from "../utils/storage";
 
@@ -28,6 +29,24 @@ export const getOrderById = async (id: string) => {
   return result;
 };
 
+export const createOrder = async (payload: {
+  customerName: string;
+  tableNumber: number;
+  cart: ICart[];
+}) => {
+  const url = `${environment.API_URL}/orders`;
+
+  const result = await fetchApi(url, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${getLocalStorage("auth")}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  return result;
+};
+
 export const updateOrder = async (id: string, payload: { status: string }) => {
   const url = `${environment.API_URL}/orders/${id}`;
 
@@ -37,7 +56,7 @@ export const updateOrder = async (id: string, payload: { status: string }) => {
       authorization: `Bearer ${getLocalStorage("auth")}`,
     },
     body: JSON.stringify(payload),
-  }).then((data) => data);
+  });
 
   return result;
 };

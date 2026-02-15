@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { getOrders, updateOrder } from "../../../services/order.service";
 import styles from "./ListOrder.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import type { IOrder } from "../../../types/order";
+import { removeLocalStorage } from "../../../utils/storage";
 
 const ListOrder = () => {
   const [orders, setOrders] = useState([]);
   const [refetchOrder, setRefetchOrder] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (refetchOrder) {
@@ -27,6 +29,11 @@ const ListOrder = () => {
     });
   };
 
+  const handleLogout = () => {
+    removeLocalStorage("auth");
+    return navigate("/login");
+  };
+
   return (
     <main className={styles.orders}>
       <section className={styles.header}>
@@ -35,7 +42,9 @@ const ListOrder = () => {
           <Link to="/create">
             <Button>Create Order</Button>
           </Link>
-          <Button color="secondary">Logout</Button>
+          <Button color="secondary" onClick={handleLogout}>
+            Logout
+          </Button>
         </div>
       </section>
       <section>

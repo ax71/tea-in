@@ -5,8 +5,9 @@
     font-weight: bold;
 }
 
-.input {
+.select {
     padding: 12px 16px;
     border: 1px solid #1c1c1c;
     border-radius: 8px;
+    appearance: none;
 }
