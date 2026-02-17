@@ -12,40 +12,49 @@ const Login = () => {
   const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
+
     const payload = {
       email: form.email.value,
       password: form.password.value,
     };
+
     const result = await login(payload);
     setLocalStorage("auth", result.token);
-
-    return navigate("/orders");
+    navigate("/orders");
   };
 
   return (
-    <main className={styles.login}>
-      <div className={styles.card}>
-        <h1 className={styles.title}>Login</h1>
-        <form className={styles.form} onSubmit={handleLogin}>
-          <Input
-            label="Email"
-            name="email"
-            id="email"
-            type="email"
-            placeholder="insert your email"
-            required
-          />
-          <Input
-            label="Password"
-            name="password"
-            id="password"
-            type="password"
-            placeholder="insert your password"
-            required
-          />
-          <Button type="submit">Login</Button>
-        </form>
+    <main className={styles.container}>
+      <div className={styles.left}>
+        <div className={styles.card}>
+          <h2>Sign In</h2>
+          <form onSubmit={handleLogin} className={styles.form}>
+            <Input
+              label="Email"
+              name="email"
+              id="email"
+              type="email"
+              placeholder="Insert your email"
+              required
+            />
+
+            <Input
+              label="Password"
+              name="password"
+              id="password"
+              type="password"
+              placeholder="Insert your password"
+              required
+            />
+
+            <Button color="secondary" type="submit">
+              Login
+            </Button>
+          </form>
+        </div>
       </div>
+
+      <div className={styles.right}></div>
     </main>
   );
 };
