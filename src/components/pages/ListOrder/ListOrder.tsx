@@ -1,25 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getOrders, updateOrder } from "../../../services/order.service";
 import styles from "./ListOrder.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import type { IOrder } from "../../../types/order";
 import { removeLocalStorage } from "../../../utils/storage";
+import Input from "../../ui/Input";
 
 const ListOrder = () => {
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [refetchOrder, setRefetchOrder] = useState(true);
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+
+  const handleSearchOrder = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const search = e.target.value;
+    setSearch(search);
+  };
+
+  const filteredOrders = useMemo(() => {
+    return orders.filter((order: IOrder) =>
+      order.customer_name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [search, orders]);
 
   useEffect(() => {
     if (refetchOrder) {
       const fecthOrder = async () => {
-        const result = await getOrders();
-
-        setOrders(result.data);
+        setIsLoading(true);
+        try {
+          const result = await getOrders();
+          setOrders(result.data);
+        } catch (error) {
+          console.log("Error get orders", error);
+        } finally {
+          setRefetchOrder(false);
+          setIsLoading(false);
+        }
       };
       fecthOrder();
-      setRefetchOrder(false);
     }
   }, [refetchOrder]);
 
@@ -38,6 +58,17 @@ const ListOrder = () => {
     <main className={styles.orders}>
       <section className={styles.header}>
         <h1 className={styles.title}>Order List</h1>
+      </section>
+      <div className={styles.search}>
+        <div className={styles.input}>
+          <Input
+            id="search"
+            name="search"
+            placeholder="Insert Costumer name ..."
+            required
+            onChange={handleSearchOrder}
+          />
+        </div>
         <div className={styles.button}>
           <Link to="/create">
             <Button>Create Order</Button>
@@ -46,7 +77,7 @@ const ListOrder = () => {
             Logout
           </Button>
         </div>
-      </section>
+      </div>
       <section>
         <table
           border={1}
@@ -65,25 +96,39 @@ const ListOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order: IOrder, index: number) => (
-              <tr key={order.id}>
-                <td>{index + 1}</td>
-                <td>{order.customer_name}</td>
-                <td>{order.table_number}</td>
-                <td>{order.total}</td>
-                <td>{order.status}</td>
-                <td className={styles.action}>
-                  <Link to={`/orders/${order.id}`}>
-                    <Button>Detail</Button>
-                  </Link>
-                  {order.status === "PROCESSING" && (
-                    <Button onClick={() => handleCompletedOrder(order.id)}>
-                      Completed
-                    </Button>
-                  )}
+            {isLoading ? (
+              <tr>
+                <td colSpan={6} style={{ textAlign: "center" }}>
+                  Loading...
                 </td>
               </tr>
-            ))}
+            ) : filteredOrders.length > 0 ? (
+              filteredOrders.map((order: IOrder, index: number) => (
+                <tr key={order.id}>
+                  <td>{index + 1}</td>
+                  <td>{order.customer_name}</td>
+                  <td>{order.table_number}</td>
+                  <td>{order.total}</td>
+                  <td>{order.status}</td>
+                  <td className={styles.action}>
+                    <Link to={`/orders/${order.id}`}>
+                      <Button>Detail</Button>
+                    </Link>
+                    {order.status === "PROCESSING" && (
+                      <Button onClick={() => handleCompletedOrder(order.id)}>
+                        Completed
+                      </Button>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} style={{ textAlign: "center" }}>
+                  Data tidak ditemukan
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </section>
