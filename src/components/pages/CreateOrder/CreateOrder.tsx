@@ -15,12 +15,12 @@ const CreateOrder = () => {
   const [carts, setCarts] = useState<ICart[]>([]);
 
   useEffect(() => {
-    const fecthOrder = async () => {
+    const fetchOrder = async () => {
       const result = await getMenus(searchParams.get("category") as string);
 
       setMenus(result.data);
     };
-    fecthOrder();
+    fetchOrder();
   }, [searchParams.get("category")]);
 
   const handleAddToCart = (type: string, id: string, name: string) => {
@@ -182,7 +182,7 @@ const CreateOrder = () => {
                   </div>
                 </div>
               ))}
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Order</Button>
             </div>
           ) : (
             <div className={styles.cart}>

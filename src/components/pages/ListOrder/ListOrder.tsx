@@ -87,12 +87,12 @@ const ListOrder = () => {
         >
           <thead>
             <tr>
-              <th>No</th>
+              <th style={{ textAlign: "center" }}>No</th>
               <th>Customer Name</th>
               <th>Table Number</th>
               <th>Total</th>
               <th>Status</th>
-              <th>Action</th>
+              <th style={{ textAlign: "center" }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -105,7 +105,7 @@ const ListOrder = () => {
             ) : filteredOrders.length > 0 ? (
               filteredOrders.map((order: IOrder, index: number) => (
                 <tr key={order.id}>
-                  <td>{index + 1}</td>
+                  <td style={{ textAlign: "center" }}>{index + 1}</td>
                   <td>{order.customer_name}</td>
                   <td>{order.table_number}</td>
                   <td>{order.total}</td>

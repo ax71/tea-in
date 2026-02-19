@@ -27,7 +27,7 @@ const Login = () => {
     <main className={styles.container}>
       <div className={styles.left}>
         <div className={styles.card}>
-          <h2>Sign In</h2>
+          <h2 className={styles.title}>Sign In</h2>
           <form onSubmit={handleLogin} className={styles.form}>
             <Input
               label="Email"

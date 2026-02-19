@@ -38,10 +38,12 @@
 
 .table th,
 .table td {
-    padding: 10px;
+    padding: 10px 20px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+
+
 
 .table th {
     background-color: #f2f2f2;
@@ -50,4 +52,5 @@
 .action {
     display: flex;
     gap: 10px;
+    justify-content: center;
 }
