@@ -5,10 +5,13 @@ import Button from "../../ui/Button";
 const Home = () => {
   return (
     <main className={styles.home}>
-      <h1> Welcome to Tea In </h1>
-      <Link to="/login">
-        <Button> Login </Button>
-      </Link>
+      <div className={styles.content}>
+        <h1 className={styles.title}> Welcome to Tea In </h1>
+        <p className={styles.description}> Please login to continue </p>
+        <Link to="/login">
+          <Button> Login </Button>
+        </Link>
+      </div>
     </main>
   );
 };
